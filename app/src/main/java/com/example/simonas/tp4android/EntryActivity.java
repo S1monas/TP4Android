@@ -193,7 +193,7 @@ public class EntryActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 getFields();
-                db.updatePokemon(galutinisPokemonas);
+                db.updateTournament(galutinisTournament);
                 Intent goToSearchActivity = new Intent(EntryActivity.this, SearchActivity.class);
                 startActivity(goToSearchActivity);
             }
@@ -273,7 +273,7 @@ public class EntryActivity extends AppCompatActivity {
         switch (item.getItemId()){
             case android.R.id.home:
                 getFields();
-                if (pradinisPokemonas.equals(galutinisPokemonas)) { //Nebuvo pakeistas
+                if (pradinisTournament.equals(galutinisTournament)) { //Nebuvo pakeistas
                     finish();
                 } else {  //Buvo pakeistas
                     showDialog();
