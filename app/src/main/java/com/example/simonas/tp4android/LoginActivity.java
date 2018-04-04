@@ -19,11 +19,11 @@ public class LoginActivity extends AppCompatActivity {
 
         setTitle(R.string.login_label);
 
-        Button btnLogin = (Button) findViewById(R.id.login);
-        Button btnRegister = (Button) findViewById(R.id.register);
+        Button btnLogin = (Button) findViewById(R.id.btnLogin);
+        Button btnRegister = (Button) findViewById(R.id.btnRegister);
         final EditText etUsername = (EditText) findViewById(R.id.username);
         final EditText etPassword = (EditText) findViewById(R.id.password);
-        final CheckBox cbRememberMe = (CheckBox) findViewById(R.id.rememberMe);
+        final CheckBox cbRememberMe = (CheckBox) findViewById(R.id.cbRememberMe);
 
         final User user = new User(LoginActivity.this);
 

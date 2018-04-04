@@ -31,10 +31,10 @@ public class RegisterActivity extends AppCompatActivity {
 
         username            = (EditText)findViewById(R.id.username);
         password            = (EditText)findViewById(R.id.password);
-        repeatpassword      = (EditText)findViewById(R.id.repeatpassword);
+        repeatpassword      = (EditText)findViewById(R.id.rpassword);
         email               = (EditText)findViewById(R.id.email);
 
-        register = (Button)findViewById(R.id.register);
+        register = (Button)findViewById(R.id.btnRegister);
         register.setOnClickListener(new View.OnClickListener() {
 
             @Override

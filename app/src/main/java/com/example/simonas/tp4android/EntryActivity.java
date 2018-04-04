@@ -63,9 +63,9 @@ public class EntryActivity extends AppCompatActivity {
         }
 
         if (entryID == -1) {
-            setTitle(R.string.new_entry_label);
+            setTitle(R.string.new_entry_label2);
         } else {
-            setTitle(R.string.entry_update_label);
+            setTitle(R.string.entry_update_label2);
         }
 
         pradinisTournament = new Tournament();
@@ -119,73 +119,10 @@ public class EntryActivity extends AppCompatActivity {
         btnSubmit.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View view) {
-                //cia vykdomas kodas, kai paspaudziamas mygtukas
-
-                //int id = Integer.parseInt(etId.getText().toString());
-
-                if (etTournament.getText().toString().isEmpty()) {
-                    Toast.makeText(EntryActivity.this, "Enter Tournamnet name!", Toast.LENGTH_SHORT).show();
-                } else if (etResult.getText().toString().isEmpty()) {
-                    Toast.makeText(EntryActivity.this, "Enter Tournament result!", Toast.LENGTH_SHORT).show();
-                } else if (!(cbFreezeOut.isChecked() || cbKnockOut.isChecked() || cbRebuy.isChecked())) {
-                    Toast.makeText(EntryActivity.this, "Select Tournament type!", Toast.LENGTH_SHORT).show();
-                } else {
-                    String name = etTournament.getText().toString();
-                    double result = Double.parseDouble(etResult.getText().toString());
-
-                    String rb = "";
-                    String spinnerText = "";
-
-                    if (rb22.isChecked()) {
-                        rb = rb22.getText().toString();
-                    } else if (rb55.isChecked()) {
-                        rb = rb55.getText().toString();
-                    } else {
-                        rb = rb109.getText().toString();
-                    }
-
-                    String checkboxText = "";
-
-                    if (cbRebuy.isChecked()) {
-                        checkboxText = checkboxText + "Vegan,";
-                    }
-                    if (cbKnockOut.isChecked()) {
-                        checkboxText = checkboxText + "Invisible,";
-                    }
-                    if (cbFreezeOut.isChecked()) {
-                        checkboxText = checkboxText + "Two heads";
-                    }
-
-                    spinnerText = spinner.getSelectedItem().toString();
-
-                    DatabaseSQLite databaseSQLite = new DatabaseSQLite(getApplicationContext());
-
-                    tournament = new Tournament();
-
-
-                /*
-                toastMessage("ID: " + pokemonToSQLite.getId() + "\n" +
-                        "Name: " + pokemonToSQLite.getName() + "\n" +
-                        "Weight: " + pokemonToSQLite.getWeight() + "\n" +
-                        "height: " + pokemonToSQLite.getHeight() + "\n" +
-                        "CP: " + pokemonToSQLite.getCp() + "\n" +
-                        "Abilities: " + pokemonToSQLite.getAbilities() + "\n" +
-                        "Type: " + pokemonToSQLite.getType());
-                 */
-
-                    databaseSQLite.addTournament(tournament);
-
-                    //visi pokemonai
-                    List<Tournament> pokemonai = databaseSQLite.getAllTournaments();
-
-                    for (Tournament tournament : tournaments) {
-                        Toast.makeText(EntryActivity.this, tournament.toString(), Toast.LENGTH_LONG).show();
-                    }
-                }
-                /*
-                Intent goToSearchActivity = new Intent(NewEntryActivity.this, SearchActivity.class);
+                getFields();
+                db.addTournament(galutinisTournament);
+                Intent goToSearchActivity = new Intent(EntryActivity.this, SearchActivity.class);
                 startActivity(goToSearchActivity);
-                */
             }
         });
 
@@ -194,6 +131,16 @@ public class EntryActivity extends AppCompatActivity {
             public void onClick(View v) {
                 getFields();
                 db.updateTournament(galutinisTournament);
+                Intent goToSearchActivity = new Intent(EntryActivity.this, SearchActivity.class);
+                startActivity(goToSearchActivity);
+            }
+        });
+
+        btnDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getFields();
+                db.deleteTournament(galutinisTournament);
                 Intent goToSearchActivity = new Intent(EntryActivity.this, SearchActivity.class);
                 startActivity(goToSearchActivity);
             }

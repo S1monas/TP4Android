@@ -5,7 +5,7 @@
     android:layout_height="wrap_content"
     android:padding="10dp">
     <TextView
-        android:id="@+id/pavadinimas"
+        android:id="@+id/etTournamentName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
@@ -14,14 +14,14 @@
         android:layout_marginLeft="5dp" />
 
     <TextView
-        android:id="@+id/galia"
+        android:id="@+id/buyin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="Galia :"
+        android:text="Buy-in: "
         android:textColor="@color/colorPrimaryDark"
         android:layout_margin="5dp"
-        android:layout_below="@+id/pavadinimas"
+        android:layout_below="@+id/etTournamentName"
         android:layout_alignParentRight="true" />
 
     <TextView
@@ -32,23 +32,24 @@
         android:text="ID :"
         android:textColor="@color/colorPrimaryDark"
         android:layout_margin="5dp"
-        android:layout_below="@+id/galia"
+        android:layout_below="@+id/buyin"
         android:layout_alignParentRight="true" />
 
     <TextView
-        android:id="@+id/tipas"
+        android:id="@+id/type"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="Tipas :"
-        android:layout_below="@+id/pavadinimas"
+        android:text="Type :"
+        android:layout_below="@+id/etTournamentName"
         android:layout_margin="5dp" />
+
     <TextView
-        android:id="@+id/savybes"
+        android:id="@+id/currency"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="Savybės :"
-        android:layout_below="@id/tipas"
-        android:layout_margin="5dp" />
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/type"
+        android:text="Currency :"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
 </RelativeLayout>

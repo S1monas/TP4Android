@@ -66,9 +66,9 @@ public class TournamentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         public MyHolder(View itemView){
             super(itemView);
             tvGame   = (TextView)itemView.findViewById(R.id.etTournamentName);
-            tvFormat         = (TextView)itemView.findViewById(R.id.rbGroup);
-            tvCurrency         = (TextView)itemView.findViewById(R.id.galia);
-            tvBuyIn       = (TextView)itemView.findViewById(R.id.savybes);
+            tvFormat         = (TextView)itemView.findViewById(R.id.type);
+            tvCurrency         = (TextView)itemView.findViewById(R.id.currency);
+            tvBuyIn       = (TextView)itemView.findViewById(R.id.buyin);
             tvResult            = (TextView)itemView.findViewById(R.id.etResult);
             itemView.setOnClickListener(this);
         }

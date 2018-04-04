@@ -15,7 +15,7 @@ public class User {
     private String password;
     private String email;
 
-    private static final String PREFERENCES_FILE_NAME = "com.byethost5.vilma.pokemonai2";
+    private static final String PREFERENCES_FILE_NAME = "com.example.simonas.tp4android";
     private static final String USERNAME_KEY = "username";
     private static final String PASSWORD_KEY = "password";
     private static final String REMEMBER_ME_KEY = "rememberMe";
