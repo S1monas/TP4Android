@@ -170,6 +170,32 @@ public class DatabaseSQLite extends SQLiteOpenHelper {
         db.close();
     }
 
+    public Tournament getTournament(int id) {
+        Tournament tournament = new Tournament();
+
+        List<Tournament> tournaments = new ArrayList<Tournament>();
+
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        Cursor cursor = db.rawQuery("SELECT * FROM pokemonai WHERE id = " + id + "", null);
+        if (cursor.moveToFirst()) {
+            do {
+                tournament.setGameid(Integer.parseInt((cursor.getString(0))));
+                tournament.setGame(cursor.getString(1));
+                tournament.setFormat(cursor.getString(2));
+                tournament.setCurrency(cursor.getString(3));
+                tournament.setBuyin(cursor.getString(4));
+                tournament.setResult(Double.parseDouble(cursor.getString(5)));
+
+                //adding tournament to list
+
+                tournaments.add(tournament);
+            } while (cursor.moveToNext());
+
+        }
+        return tournaments.get(0);
+    }
+
     public List<Tournament> getAllTournaments(){
         List<Tournament> tournaments = new ArrayList<Tournament>();
 
@@ -213,7 +239,7 @@ public class DatabaseSQLite extends SQLiteOpenHelper {
         getWritableDatabase().close();
     }
 
-    public void deleteTournamnet(Tournament tournament){
+    public void deleteTournament(Tournament tournament){
         getWritableDatabase().delete(TABLE_TOURNAMENTS, " id = " +tournament.getGameid(), null);
         getWritableDatabase().close();
     }
