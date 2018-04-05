@@ -48,12 +48,16 @@ public class TournamentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         // recyclerview to bind data and assign value from list
         MyHolder myHolder = (MyHolder) holder;
         Tournament currentTournament = tournaments.get(position);
-        myHolder.tvGame.setText(           currentTournament.getGame());
-        myHolder.tvFormat.setText("Type: "      + currentTournament.getFormat());
+        String stringResult = String.valueOf(currentTournament.getResult());
+
+        myHolder.tvGameId.setText("Game ID: "         + currentTournament.getGameid());
+        myHolder.tvGame.setText(                        currentTournament.getGame());
+        //myHolder.tvUser.setText("User: "            + currentTournament.getUser());
+        myHolder.tvFormat.setText("Type: "            + currentTournament.getFormat());
         myHolder.tvCurrency.setText("Currency: "      + currentTournament.getCurrency());
         myHolder.tvBuyIn.setText("Buyin: "            + currentTournament.getBuyin());
-        myHolder.tvResult.setText("Result: "  + currentTournament.getResult());
-    }
+        //myHolder.tvResult.setText(                      stringResult);
+}
 
     @Override
     public int getItemCount() {
@@ -61,15 +65,16 @@ public class TournamentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     }
 
     class MyHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
-        TextView tvGame,tvFormat,tvCurrency,tvBuyIn, tvResult;
+        TextView tvGameId,tvGame,tvFormat,tvCurrency,tvBuyIn, tvResult;
 
         public MyHolder(View itemView){
             super(itemView);
+            tvGameId = (TextView)itemView.findViewById(R.id.id);
             tvGame   = (TextView)itemView.findViewById(R.id.etTournamentName);
             tvFormat         = (TextView)itemView.findViewById(R.id.type);
             tvCurrency         = (TextView)itemView.findViewById(R.id.currency);
             tvBuyIn       = (TextView)itemView.findViewById(R.id.buyin);
-            tvResult            = (TextView)itemView.findViewById(R.id.etResult);
+           // tvResult            = (TextView)itemView.findViewById(R.id.etResult);
             itemView.setOnClickListener(this);
         }
 
@@ -79,7 +84,6 @@ public class TournamentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             int itemPosition = getAdapterPosition();
             int TournamentsID = tournaments.get(itemPosition).getGameid();
 
-            // TODO: siųsti pasirinkto pokemono objektą vietoj id
             Tournament tournament = tournaments.get(itemPosition);
 
             Intent intent = new Intent(context, EntryActivity.class);

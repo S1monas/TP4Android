@@ -15,7 +15,7 @@ import java.util.List;
 
 public class DatabaseSQLite extends SQLiteOpenHelper {
     private static final int DATABASE_VERSION = 1;
-    private static final String DATABASE_NAME = "db";
+    private static final String DATABASE_NAME = "dbtp";
 
     private static final String TABLE_USERS = "users";
     private static final String USER_ID = "id";
@@ -26,9 +26,9 @@ public class DatabaseSQLite extends SQLiteOpenHelper {
 
     //public Tournament (int gameid, String game, String user, String format, String currency, String buyin, double result) {
     private static final String TABLE_TOURNAMENTS = "tournament";
-    private static final String TOURNAMENT_ID = "id";
+    private static final String TOURNAMENT_ID = "gameid";
     private static final String TOURNAMENT_GAME = "game";
-    private static final String TOURNAMENT_USER = "user";
+   // private static final String TOURNAMENT_USER = "user";
     private static final String TOURNAMENT_FORMAT = "format";
     private static final String TOURNAMENT_CURRENCY = "currency";
     private static final String TOURNAMENT_BUYIN = "buyin";
@@ -50,10 +50,10 @@ public class DatabaseSQLite extends SQLiteOpenHelper {
         String CREATE_TOURNAMENTS_TABLE = "CREATE TABLE " + TABLE_TOURNAMENTS + "("
                 + TOURNAMENT_ID + " INTEGER PRIMARY KEY,"
                 + TOURNAMENT_GAME + " TEXT,"
-                + TOURNAMENT_USER + " TEXT,"
+               // + TOURNAMENT_USER + " TEXT,"
                 + TOURNAMENT_FORMAT + " TEXT,"
                 + TOURNAMENT_CURRENCY + " TEXT,"
-                + TOURNAMENT_BUYIN + " REAL,"
+                + TOURNAMENT_BUYIN + " TEXT,"
                 + TOURNAMENT_RESULT + " REAL" + ")";
         db.execSQL(CREATE_TOURNAMENTS_TABLE);
     }
@@ -157,7 +157,7 @@ public class DatabaseSQLite extends SQLiteOpenHelper {
 
         ContentValues values = new ContentValues();
         values.put(TOURNAMENT_GAME, tournament.getGame());
-        // values.put(TOURNAMENT_USER, tournament.getUser()); pasižiurėt kad netruktu
+        //values.put(TOURNAMENT_USER, tournament.getUser()); //pasižiurėt kad netruktu
         values.put(TOURNAMENT_FORMAT, tournament.getFormat());
         values.put(TOURNAMENT_CURRENCY, tournament.getCurrency());
         values.put(TOURNAMENT_BUYIN, tournament.getBuyin());
@@ -177,7 +177,7 @@ public class DatabaseSQLite extends SQLiteOpenHelper {
 
         SQLiteDatabase db = this.getWritableDatabase();
 
-        Cursor cursor = db.rawQuery("SELECT * FROM pokemonai WHERE id = " + id + "", null);
+        Cursor cursor = db.rawQuery("SELECT * FROM tournaments WHERE id = " + id + "", null);
         if (cursor.moveToFirst()) {
             do {
                 tournament.setGameid(Integer.parseInt((cursor.getString(0))));
@@ -213,11 +213,12 @@ public class DatabaseSQLite extends SQLiteOpenHelper {
 
                 tournament.setGameid(Integer.parseInt((cursor.getString(0))));
                 tournament.setGame(cursor.getString(1));
+                //tournament.setUser(cursor.getString(2));
                 tournament.setFormat(cursor.getString(2));
                 tournament.setCurrency(cursor.getString(3));
                 tournament.setBuyin(cursor.getString(4));
                 tournament.setResult(Double.parseDouble(cursor.getString(5)));
-                //adding pokemon to list
+                //adding tournament to list
                 tournaments.add(tournament);
             } while (cursor.moveToNext());
         }
@@ -229,7 +230,7 @@ public class DatabaseSQLite extends SQLiteOpenHelper {
     public void updateTournament(Tournament tournament){
         ContentValues values = new ContentValues();
         values.put(TOURNAMENT_GAME, tournament.getGame());
-        // values.put(TOURNAMENT_USER, tournament.getUser()); pasižiurėt kad netruktu
+       // values.put(TOURNAMENT_USER, tournament.getUser());// pasižiurėt kad netruktu
         values.put(TOURNAMENT_FORMAT, tournament.getFormat());
         values.put(TOURNAMENT_CURRENCY, tournament.getCurrency());
         values.put(TOURNAMENT_BUYIN, tournament.getBuyin());

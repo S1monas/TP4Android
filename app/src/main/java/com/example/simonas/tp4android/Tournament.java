@@ -13,21 +13,26 @@ public class Tournament {
     private String buyin;
     private double result;
 
+    @Override
+    public String toString() {
+        return "Tournament{" +
+                "gameid=" + gameid +
+                ", game='" + game + '\'' +
+                ", format='" + format + '\'' +
+                ", currency='" + currency + '\'' +
+                ", buyin='" + buyin + '\'' +
+                ", result=" + result +
+                '}';
+    }
+
     public Tournament () {
 
     }
 
 
-
-    @Override
-    public String toString() {
-        return "Tournament [gameid=" + gameid + ", game=" + game + ", user=" + user + ", format=" + format
-                + ", currency=" + currency + ", buyin=" + buyin + ", result=" + result + "]";
-    }
-
     public Tournament (String game, String user, String format, String currency, String buyin, double result) {
         this.game = game;
-        this.user = user;
+        //this.user = user;
         this.format = format;
         this.currency = currency;
         this.buyin = buyin;
@@ -37,7 +42,7 @@ public class Tournament {
     public Tournament (int gameid, String game, String user, String format, String currency, String buyin, double result) {
         this.gameid = gameid;
         this.game = game;
-        this.user = user;
+        //this.user = user;
         this.format = format;
         this.currency = currency;
         this.buyin = buyin;

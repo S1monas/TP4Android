@@ -16,9 +16,7 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
-import android.widget.Toast;
 
-import java.util.List;
 
 import static com.example.simonas.tp4android.TournamentAdapter.ENTRY_ID;
 
@@ -98,6 +96,7 @@ public class EntryActivity extends AppCompatActivity {
         }
 
         etResult = (EditText) findViewById(R.id.etResult);
+        etTournament= (EditText) findViewById(R.id.etTournamentName);
 
         rbGroup = (RadioGroup) findViewById(R.id.rbGroup);
         rb22 = (RadioButton) findViewById(R.id.rb22);
@@ -119,7 +118,41 @@ public class EntryActivity extends AppCompatActivity {
         btnSubmit.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View view) {
-                getFields();
+
+                String tournamentName = etTournament.getText().toString();
+                double result = Double.parseDouble(etResult.getText().toString());
+                String rb = "";
+                String spinnerText = "";
+
+                if (rb22.isChecked()) {
+                    rb = rb22.getText().toString();
+                } else if (rb55.isChecked()) {
+                    rb = rb55.getText().toString();
+                } else {
+                    rb = rb109.getText().toString();
+                }
+
+                String checkboxText = "";
+
+                if (cbRebuy.isChecked()) {
+                    checkboxText = checkboxText + "Rebuy,";
+                }
+                if (cbKnockOut.isChecked()) {
+                    checkboxText = checkboxText + "KnockOut,";
+                }
+                if (cbFreezeOut.isChecked()) {
+                    checkboxText = checkboxText + "FreezeOut";
+                }
+
+                spinnerText = spinner.getSelectedItem().toString();
+
+                galutinisTournament.setGameid(pradinisTournament.getGameid());
+                galutinisTournament.setGame(tournamentName);
+                galutinisTournament.setFormat(checkboxText);
+                galutinisTournament.setCurrency(spinnerText);
+                galutinisTournament.setBuyin(rb);
+                galutinisTournament.setResult(result);
+
                 db.addTournament(galutinisTournament);
                 Intent goToSearchActivity = new Intent(EntryActivity.this, SearchActivity.class);
                 startActivity(goToSearchActivity);
@@ -129,7 +162,41 @@ public class EntryActivity extends AppCompatActivity {
         btnUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getFields();
+
+                String tournamentName = etTournament.getText().toString();
+                double result = Double.parseDouble(etResult.getText().toString());
+                String rb = "";
+                String spinnerText = "";
+
+                if (rb22.isChecked()) {
+                    rb = rb22.getText().toString();
+                } else if (rb55.isChecked()) {
+                    rb = rb55.getText().toString();
+                } else {
+                    rb = rb109.getText().toString();
+                }
+
+                String checkboxText = "";
+
+                if (cbRebuy.isChecked()) {
+                    checkboxText = checkboxText + "Rebuy,";
+                }
+                if (cbKnockOut.isChecked()) {
+                    checkboxText = checkboxText + "KnockOut,";
+                }
+                if (cbFreezeOut.isChecked()) {
+                    checkboxText = checkboxText + "FreezeOut";
+                }
+
+                spinnerText = spinner.getSelectedItem().toString();
+
+                galutinisTournament.setGameid(pradinisTournament.getGameid());
+                galutinisTournament.setGame(tournamentName);
+                galutinisTournament.setFormat(checkboxText);
+                galutinisTournament.setCurrency(spinnerText);
+                galutinisTournament.setBuyin(rb);
+                galutinisTournament.setResult(result);
+
                 db.updateTournament(galutinisTournament);
                 Intent goToSearchActivity = new Intent(EntryActivity.this, SearchActivity.class);
                 startActivity(goToSearchActivity);
@@ -139,7 +206,7 @@ public class EntryActivity extends AppCompatActivity {
         btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getFields();
+                //getFields();
                 db.deleteTournament(galutinisTournament);
                 Intent goToSearchActivity = new Intent(EntryActivity.this, SearchActivity.class);
                 startActivity(goToSearchActivity);
@@ -147,8 +214,8 @@ public class EntryActivity extends AppCompatActivity {
         });
     }
 
-    private void getFields(){
-        //public Tournament (int gameid, String game, String user, String format, String currency, String buyin, double result)
+    /*private void getFields(){
+
         String name = etTournament.getText().toString();
         double result = Double.parseDouble(etResult.getText().toString());
         String rb = "";
@@ -182,7 +249,7 @@ public class EntryActivity extends AppCompatActivity {
         galutinisTournament.setCurrency(spinnerText);
         galutinisTournament.setBuyin(rb);
         galutinisTournament.setResult(result);
-    }
+    }*/
 
     private void fillFields (Tournament tournament){
         etResult = (EditText) findViewById(R.id.etResult);
@@ -219,7 +286,7 @@ public class EntryActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case android.R.id.home:
-                getFields();
+                //getFields();
                 if (pradinisTournament.equals(galutinisTournament)) { //Nebuvo pakeistas
                     finish();
                 } else {  //Buvo pakeistas
