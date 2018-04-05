@@ -26,7 +26,6 @@ public class Tournament {
     }
 
     public Tournament () {
-
     }
 
 
@@ -106,7 +105,22 @@ public class Tournament {
         this.result = result;
     }
 
-
-
+    @Override
+    public boolean equals(Object o) {
+        if (o instanceof Tournament) {
+            Tournament tournament = (Tournament) o;
+            boolean game = tournament.getGame().equals(getGame());
+            boolean format = tournament.getFormat().equals(getFormat());
+            boolean currency = tournament.getCurrency().equals(getCurrency());
+            boolean buyin = tournament.getBuyin().equals(getBuyin());
+            boolean result = Double.compare(tournament.getResult(),getResult())==0;
+            return (game
+                    &&format
+                    &&currency
+                    &&buyin
+                    &&result);
+        }
+        return false;
+    }
 }
 

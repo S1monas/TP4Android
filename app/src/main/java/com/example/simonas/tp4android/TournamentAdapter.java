@@ -21,7 +21,6 @@ public class TournamentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     private Context context;
     private LayoutInflater inflater;
     private List<Tournament> tournaments = Collections.emptyList();
-    //private Pokemonas currentPokemon;
 
     public static final String ENTRY_ID = "com.example.simonas.tp4android";
 
@@ -48,15 +47,11 @@ public class TournamentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         // recyclerview to bind data and assign value from list
         MyHolder myHolder = (MyHolder) holder;
         Tournament currentTournament = tournaments.get(position);
-        String stringResult = String.valueOf(currentTournament.getResult());
-
         myHolder.tvGameId.setText("Game ID: "         + currentTournament.getGameid());
         myHolder.tvGame.setText(                        currentTournament.getGame());
-        //myHolder.tvUser.setText("User: "            + currentTournament.getUser());
         myHolder.tvFormat.setText("Type: "            + currentTournament.getFormat());
         myHolder.tvCurrency.setText("Currency: "      + currentTournament.getCurrency());
         myHolder.tvBuyIn.setText("Buyin: "            + currentTournament.getBuyin());
-        //myHolder.tvResult.setText(                      stringResult);
 }
 
     @Override
@@ -65,16 +60,15 @@ public class TournamentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     }
 
     class MyHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
-        TextView tvGameId,tvGame,tvFormat,tvCurrency,tvBuyIn, tvResult;
+        TextView tvGameId,tvGame,tvFormat,tvCurrency,tvBuyIn;
 
         public MyHolder(View itemView){
             super(itemView);
-            tvGameId = (TextView)itemView.findViewById(R.id.id);
-            tvGame   = (TextView)itemView.findViewById(R.id.etTournamentName);
+            tvGameId         = (TextView)itemView.findViewById(R.id.id);
+            tvGame           = (TextView)itemView.findViewById(R.id.etTournamentName);
             tvFormat         = (TextView)itemView.findViewById(R.id.type);
-            tvCurrency         = (TextView)itemView.findViewById(R.id.currency);
-            tvBuyIn       = (TextView)itemView.findViewById(R.id.buyin);
-           // tvResult            = (TextView)itemView.findViewById(R.id.etResult);
+            tvCurrency       = (TextView)itemView.findViewById(R.id.currency);
+            tvBuyIn          = (TextView)itemView.findViewById(R.id.buyin);
             itemView.setOnClickListener(this);
         }
 

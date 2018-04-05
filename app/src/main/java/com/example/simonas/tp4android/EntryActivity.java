@@ -18,11 +18,10 @@ import android.widget.RadioGroup;
 import android.widget.Spinner;
 
 
-import static com.example.simonas.tp4android.TournamentAdapter.ENTRY_ID;
-
 /**
  * Created by Simonas on 2018.04.04.
  */
+import static com.example.simonas.tp4android.TournamentAdapter.ENTRY_ID;
 
 public class EntryActivity extends AppCompatActivity {
 
@@ -38,17 +37,16 @@ public class EntryActivity extends AppCompatActivity {
     Tournament pradinisTournament;
     Tournament galutinisTournament;
 
-    DatabaseSQLite db;
+    DatabaseSQLite dbtp;
 
     String items[] = {"USD", "Euro", "GBP"};
 
     @Override
-
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_entry);
 
-        db = new DatabaseSQLite(EntryActivity.this);
+        dbtp = new DatabaseSQLite(EntryActivity.this);
 
         int entryID = -1;
         if (savedInstanceState == null) {
@@ -70,15 +68,14 @@ public class EntryActivity extends AppCompatActivity {
         if (entryID == -1) { //naujas irasas
             pradinisTournament.setGameid(-1);
             pradinisTournament.setGame("");
-            pradinisTournament.setResult(0);
-            pradinisTournament.setBuyin("55$");
             pradinisTournament.setFormat("Freeze Out");
             pradinisTournament.setCurrency("USD");
+            pradinisTournament.setBuyin("55$");
+            pradinisTournament.setResult(0);
 
         } else { // egzistuojantis irasas
-            pradinisTournament = db.getTournament(entryID);
+            pradinisTournament = dbtp.getTournament(entryID);
         }
-
         galutinisTournament = new Tournament();
 
         //setTitle(R.string.new_entry_label);
@@ -153,7 +150,7 @@ public class EntryActivity extends AppCompatActivity {
                 galutinisTournament.setBuyin(rb);
                 galutinisTournament.setResult(result);
 
-                db.addTournament(galutinisTournament);
+                dbtp.addTournament(galutinisTournament);
                 Intent goToSearchActivity = new Intent(EntryActivity.this, SearchActivity.class);
                 startActivity(goToSearchActivity);
             }
@@ -197,7 +194,7 @@ public class EntryActivity extends AppCompatActivity {
                 galutinisTournament.setBuyin(rb);
                 galutinisTournament.setResult(result);
 
-                db.updateTournament(galutinisTournament);
+                dbtp.updateTournament(galutinisTournament);
                 Intent goToSearchActivity = new Intent(EntryActivity.this, SearchActivity.class);
                 startActivity(goToSearchActivity);
             }
@@ -207,14 +204,14 @@ public class EntryActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //getFields();
-                db.deleteTournament(galutinisTournament);
+                dbtp.deleteTournament(galutinisTournament);
                 Intent goToSearchActivity = new Intent(EntryActivity.this, SearchActivity.class);
                 startActivity(goToSearchActivity);
             }
         });
     }
 
-    /*private void getFields(){
+    private void getFields(){
 
         String name = etTournament.getText().toString();
         double result = Double.parseDouble(etResult.getText().toString());
@@ -249,19 +246,20 @@ public class EntryActivity extends AppCompatActivity {
         galutinisTournament.setCurrency(spinnerText);
         galutinisTournament.setBuyin(rb);
         galutinisTournament.setResult(result);
-    }*/
+    }
 
     private void fillFields (Tournament tournament){
-        etResult = (EditText) findViewById(R.id.etResult);
+        etTournament.setText(tournament.getGame());
+        etResult.setText(String.valueOf(tournament.getResult()));
 
-        rbGroup = (RadioGroup) findViewById(R.id.rbGroup);
-        rb22 = (RadioButton) findViewById(R.id.rb22);
-        rb55 = (RadioButton) findViewById(R.id.rb55);
-        rb109 = (RadioButton) findViewById(R.id.rb109);
+        //rbGroup = (RadioGroup) findViewById(R.id.rbGroup);
+        rb22.setChecked(tournament.getBuyin().equals("22$"));
+        rb55.setChecked(tournament.getBuyin().equals("55$"));
+        rb109.setChecked(tournament.getBuyin().equals("109$"));
 
-        cbKnockOut = (CheckBox) findViewById(R.id.cbKnockOut);
-        cbRebuy = (CheckBox) findViewById(R.id.cbRebuy);
-        cbFreezeOut = (CheckBox) findViewById(R.id.cbFreezeOut);
+        cbKnockOut.setChecked(tournament.getFormat().equals("KnockOut"));
+        cbRebuy.setChecked(tournament.getFormat().equals("Rebuy"));
+        cbFreezeOut.setChecked(tournament.getFormat().equals("FreezeOut"));
 
         spinner.setSelection(adapter.getPosition(tournament.getCurrency()));
     }
@@ -286,7 +284,7 @@ public class EntryActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case android.R.id.home:
-                //getFields();
+                getFields();
                 if (pradinisTournament.equals(galutinisTournament)) { //Nebuvo pakeistas
                     finish();
                 } else {  //Buvo pakeistas

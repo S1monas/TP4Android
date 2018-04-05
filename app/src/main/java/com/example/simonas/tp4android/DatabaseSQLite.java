@@ -38,14 +38,14 @@ public class DatabaseSQLite extends SQLiteOpenHelper {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
-    public void onCreate(SQLiteDatabase db){
+    public void onCreate(SQLiteDatabase dbtp){
         String CREATE_USERS_TABLE = "CREATE TABLE " + TABLE_USERS + "("
                 + USER_ID + " INTEGER PRIMARY KEY,"
                 + USER_LEVEL + " TEXT,"
                 + USER_NAME + " TEXT,"
                 + USER_PASSWORD + " TEXT,"
                 + USER_EMAIL + " TEXT" + ")";
-        db.execSQL(CREATE_USERS_TABLE);
+        dbtp.execSQL(CREATE_USERS_TABLE);
 
         String CREATE_TOURNAMENTS_TABLE = "CREATE TABLE " + TABLE_TOURNAMENTS + "("
                 + TOURNAMENT_ID + " INTEGER PRIMARY KEY,"
@@ -55,20 +55,20 @@ public class DatabaseSQLite extends SQLiteOpenHelper {
                 + TOURNAMENT_CURRENCY + " TEXT,"
                 + TOURNAMENT_BUYIN + " TEXT,"
                 + TOURNAMENT_RESULT + " REAL" + ")";
-        db.execSQL(CREATE_TOURNAMENTS_TABLE);
+        dbtp.execSQL(CREATE_TOURNAMENTS_TABLE);
     }
 
-    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion){
+    public void onUpgrade(SQLiteDatabase dbtp, int oldVersion, int newVersion){
         //Drop older table if existed
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_USERS);
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_TOURNAMENTS);
+        dbtp.execSQL("DROP TABLE IF EXISTS " + TABLE_USERS);
+        dbtp.execSQL("DROP TABLE IF EXISTS " + TABLE_TOURNAMENTS);
 
         //Create tables again
-        onCreate(db);
+        onCreate(dbtp);
     }
 
     void addUser(User user){
-        SQLiteDatabase db = this.getWritableDatabase();
+        SQLiteDatabase dbtp = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
         values.put(USER_LEVEL, user.getUserlevel());
@@ -77,16 +77,16 @@ public class DatabaseSQLite extends SQLiteOpenHelper {
         values.put(USER_EMAIL, user.getEmailForRegister());
 
         //Inserting row
-        db.insert(TABLE_USERS, null, values);
+        dbtp.insert(TABLE_USERS, null, values);
 
         //Closing database connection;
-        db.close();
+        dbtp.close();
     }
 
     User getUser(int id) {
-        SQLiteDatabase db = this.getReadableDatabase();
+        SQLiteDatabase dbtp = this.getReadableDatabase();
 
-        Cursor cursor = db.query(
+        Cursor cursor = dbtp.query(
                 TABLE_USERS,
                 new String[]{
                         USER_ID,
@@ -117,9 +117,9 @@ public class DatabaseSQLite extends SQLiteOpenHelper {
         //Select All Query
         String selectQuery = "SELECT * FROM " + TABLE_USERS;
 
-        SQLiteDatabase db = this.getWritableDatabase();
+        SQLiteDatabase dbtp = this.getWritableDatabase();
 
-        Cursor cursor = db.rawQuery(selectQuery, null);
+        Cursor cursor = dbtp.rawQuery(selectQuery, null);
 
         //looping through all rows and adding to list
         if (cursor.moveToFirst()){
@@ -153,7 +153,7 @@ public class DatabaseSQLite extends SQLiteOpenHelper {
     }
 
     public void addTournament (Tournament tournament) {
-        SQLiteDatabase db = this.getWritableDatabase();
+        SQLiteDatabase dbtp = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
         values.put(TOURNAMENT_GAME, tournament.getGame());
@@ -164,20 +164,20 @@ public class DatabaseSQLite extends SQLiteOpenHelper {
         values.put(TOURNAMENT_RESULT, tournament.getResult());
 
         //Inserting row
-        db.insert(TABLE_TOURNAMENTS, null, values);
+        dbtp.insert(TABLE_TOURNAMENTS, null, values);
 
         //Closing database connection;
-        db.close();
+        dbtp.close();
     }
 
-    public Tournament getTournament(int id) {
+    public Tournament getTournament(int gameId) {
         Tournament tournament = new Tournament();
 
         List<Tournament> tournaments = new ArrayList<Tournament>();
 
-        SQLiteDatabase db = this.getWritableDatabase();
+        SQLiteDatabase dbtp = this.getWritableDatabase();
 
-        Cursor cursor = db.rawQuery("SELECT * FROM tournaments WHERE id = " + id + "", null);
+        Cursor cursor = dbtp.rawQuery("SELECT * FROM tournament WHERE gameid = " + gameId + "", null);
         if (cursor.moveToFirst()) {
             do {
                 tournament.setGameid(Integer.parseInt((cursor.getString(0))));
@@ -185,7 +185,7 @@ public class DatabaseSQLite extends SQLiteOpenHelper {
                 tournament.setFormat(cursor.getString(2));
                 tournament.setCurrency(cursor.getString(3));
                 tournament.setBuyin(cursor.getString(4));
-                tournament.setResult(Double.parseDouble(cursor.getString(5)));
+                tournament.setResult(cursor.getDouble(5));
 
                 //adding tournament to list
 
@@ -202,9 +202,9 @@ public class DatabaseSQLite extends SQLiteOpenHelper {
         //Select All Query
         String selectQuery = "SELECT * FROM " + TABLE_TOURNAMENTS;
 
-        SQLiteDatabase db = this.getWritableDatabase();
+        SQLiteDatabase dbtp = this.getWritableDatabase();
 
-        Cursor cursor = db.rawQuery(selectQuery, null);
+        Cursor cursor = dbtp.rawQuery(selectQuery, null);
 
         //looping through all rows and adding to list
         if (cursor.moveToFirst()){
@@ -236,12 +236,12 @@ public class DatabaseSQLite extends SQLiteOpenHelper {
         values.put(TOURNAMENT_BUYIN, tournament.getBuyin());
         values.put(TOURNAMENT_RESULT, tournament.getResult());
 
-        getReadableDatabase().update(TABLE_TOURNAMENTS, values, " id = "+tournament.getGameid(), null);
+        getReadableDatabase().update(TABLE_TOURNAMENTS, values, " gameid = "+tournament.getGameid(), null);
         getWritableDatabase().close();
     }
 
     public void deleteTournament(Tournament tournament){
-        getWritableDatabase().delete(TABLE_TOURNAMENTS, " id = " +tournament.getGameid(), null);
+        getWritableDatabase().delete(TABLE_TOURNAMENTS, " gameid = " +tournament.getGameid(), null);
         getWritableDatabase().close();
     }
 }
