@@ -170,6 +170,34 @@ public class DatabaseSQLite extends SQLiteOpenHelper {
         dbtp.close();
     }
 
+    public List<Tournament> getTournamentByName(String game) {
+        List<Tournament> tournaments = new ArrayList<Tournament>();
+
+        SQLiteDatabase dbtp = this.getWritableDatabase();
+
+        Cursor cursor = dbtp.rawQuery("SELECT * FROM tournament WHERE game LIKE '%"+game+"%'", null);
+
+        // looping through all rows and adding to list
+        if (cursor.moveToFirst()) {
+            do {
+                Tournament tournament = new Tournament();
+
+                tournament.setGameid(Integer.parseInt((cursor.getString(0))));
+                tournament.setGame(cursor.getString(1));
+                tournament.setFormat(cursor.getString(2));
+                tournament.setCurrency(cursor.getString(3));
+                tournament.setBuyin(cursor.getString(4));
+                tournament.setResult(cursor.getDouble(5));
+
+                //adding tournament to list
+                tournaments.add(tournament);
+            } while (cursor.moveToNext());
+        }
+        // return pokemonaiSQLite list
+        return tournaments;
+
+    }
+
     public Tournament getTournament(int gameId) {
         Tournament tournament = new Tournament();
 
@@ -188,7 +216,6 @@ public class DatabaseSQLite extends SQLiteOpenHelper {
                 tournament.setResult(cursor.getDouble(5));
 
                 //adding tournament to list
-
                 tournaments.add(tournament);
             } while (cursor.moveToNext());
 

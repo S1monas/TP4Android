@@ -115,41 +115,7 @@ public class EntryActivity extends AppCompatActivity {
         btnSubmit.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View view) {
-
-                String tournamentName = etTournament.getText().toString();
-                double result = Double.parseDouble(etResult.getText().toString());
-                String rb = "";
-                String spinnerText = "";
-
-                if (rb22.isChecked()) {
-                    rb = rb22.getText().toString();
-                } else if (rb55.isChecked()) {
-                    rb = rb55.getText().toString();
-                } else {
-                    rb = rb109.getText().toString();
-                }
-
-                String checkboxText = "";
-
-                if (cbRebuy.isChecked()) {
-                    checkboxText = checkboxText + "Rebuy,";
-                }
-                if (cbKnockOut.isChecked()) {
-                    checkboxText = checkboxText + "KnockOut,";
-                }
-                if (cbFreezeOut.isChecked()) {
-                    checkboxText = checkboxText + "FreezeOut";
-                }
-
-                spinnerText = spinner.getSelectedItem().toString();
-
-                galutinisTournament.setGameid(pradinisTournament.getGameid());
-                galutinisTournament.setGame(tournamentName);
-                galutinisTournament.setFormat(checkboxText);
-                galutinisTournament.setCurrency(spinnerText);
-                galutinisTournament.setBuyin(rb);
-                galutinisTournament.setResult(result);
-
+                getFields();
                 dbtp.addTournament(galutinisTournament);
                 Intent goToSearchActivity = new Intent(EntryActivity.this, SearchActivity.class);
                 startActivity(goToSearchActivity);
@@ -159,41 +125,7 @@ public class EntryActivity extends AppCompatActivity {
         btnUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                String tournamentName = etTournament.getText().toString();
-                double result = Double.parseDouble(etResult.getText().toString());
-                String rb = "";
-                String spinnerText = "";
-
-                if (rb22.isChecked()) {
-                    rb = rb22.getText().toString();
-                } else if (rb55.isChecked()) {
-                    rb = rb55.getText().toString();
-                } else {
-                    rb = rb109.getText().toString();
-                }
-
-                String checkboxText = "";
-
-                if (cbRebuy.isChecked()) {
-                    checkboxText = checkboxText + "Rebuy,";
-                }
-                if (cbKnockOut.isChecked()) {
-                    checkboxText = checkboxText + "KnockOut,";
-                }
-                if (cbFreezeOut.isChecked()) {
-                    checkboxText = checkboxText + "FreezeOut";
-                }
-
-                spinnerText = spinner.getSelectedItem().toString();
-
-                galutinisTournament.setGameid(pradinisTournament.getGameid());
-                galutinisTournament.setGame(tournamentName);
-                galutinisTournament.setFormat(checkboxText);
-                galutinisTournament.setCurrency(spinnerText);
-                galutinisTournament.setBuyin(rb);
-                galutinisTournament.setResult(result);
-
+                getFields();
                 dbtp.updateTournament(galutinisTournament);
                 Intent goToSearchActivity = new Intent(EntryActivity.this, SearchActivity.class);
                 startActivity(goToSearchActivity);
@@ -203,7 +135,7 @@ public class EntryActivity extends AppCompatActivity {
         btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //getFields();
+                getFields();
                 dbtp.deleteTournament(galutinisTournament);
                 Intent goToSearchActivity = new Intent(EntryActivity.this, SearchActivity.class);
                 startActivity(goToSearchActivity);
@@ -264,7 +196,7 @@ public class EntryActivity extends AppCompatActivity {
         spinner.setSelection(adapter.getPosition(tournament.getCurrency()));
     }
 
-    @Override
+   /* @Override //Uzkomentinta mygtuko override
     public boolean onKeyDown(int keyCode, KeyEvent event)  {
         if (Integer.parseInt(android.os.Build.VERSION.SDK) > 5
                 && keyCode == KeyEvent.KEYCODE_BACK
@@ -279,7 +211,7 @@ public class EntryActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
 
-    }
+    }*/
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){

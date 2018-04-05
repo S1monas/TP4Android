@@ -1,9 +1,11 @@
 package com.example.simonas.tp4android;
 
 
+import android.app.ProgressDialog;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -15,6 +17,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -32,6 +35,8 @@ public class SearchActivity extends AppCompatActivity {
     TournamentAdapter tournamentAdapter;
 
     List<Tournament> tournamentsSQLite = Collections.emptyList();
+
+    List<Tournament> tournamentsSearch = new ArrayList<Tournament>();
 
     DatabaseSQLite dbtp;
 
@@ -90,17 +95,75 @@ public class SearchActivity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
+
     @Override
     public void onBackPressed() {
 
     }
+    @Override
+    //every time when you press search button an actvity is recreated which in turn
+    //calls this function
+    protected void onNewIntent(Intent intent) {
+        //get search query and create object of class AsyncFetch
+        if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
+            String query = intent.getStringExtra(SearchManager.QUERY);
+            if (searchView != null) {
+                searchView.clearFocus();
+            }
+            new AsyncFetch(query).execute();
+        }
+    }
 
-    private void setRecycleView(List<Tournament> tournaments) {
+    private void setRecycleView(List<Tournament> tournamentsSQLite) {
         rvTournaments = (RecyclerView) findViewById(R.id.tournament_list);
-        tournamentAdapter = new TournamentAdapter(SearchActivity.this, tournaments);
+        tournamentAdapter = new TournamentAdapter(SearchActivity.this, tournamentsSQLite);
         rvTournaments.setAdapter(tournamentAdapter);
         rvTournaments.setLayoutManager(new LinearLayoutManager(SearchActivity.this));
     }
 
+    class AsyncFetch extends AsyncTask<String, String, String> {
+        ProgressDialog progressDialog = new ProgressDialog(SearchActivity.this);
+        String searchQuery;
+
+        public AsyncFetch(String searchQuery) {
+            this.searchQuery = searchQuery;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            progressDialog.setMessage("Prašome palaukti");
+            progressDialog.setCancelable(false);
+            progressDialog.show();
+        }
+
+        @Override
+        protected String doInBackground(String... params) {
+
+            if (!tournamentsSearch.isEmpty()) {
+                tournamentsSearch.clear();
+            }
+
+            //vartotojo paieska vykdoma sarase (ne db)
+            for (int i = 0; i < tournamentsSQLite.size(); i++) {
+                if (tournamentsSQLite.get(i).getGame().contains(searchQuery)) {
+                    tournamentsSearch.add(tournamentsSQLite.get(i));
+                }
+            }
+
+            if (tournamentsSearch.isEmpty()) {
+                return "no rows";
+            } else {
+                return "rows";
+            }
+        }
+
+            @Override
+            protected void onPostExecute (String result){
+                progressDialog.dismiss();
+
+                setRecycleView(tournamentsSearch);
+            }
+    }
 }
 
