@@ -3,6 +3,7 @@
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@drawable/backcontainerwborder"
     android:padding="10dp">
     <TextView
         android:id="@+id/etTournamentName"
@@ -10,7 +11,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Pavadinimas"
-        android:textColor="@color/colorAccent"
+        android:textColor="@android:color/holo_orange_light"
         android:layout_marginLeft="5dp" />
 
     <TextView
@@ -19,7 +20,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="Buy-in: "
-        android:textColor="@color/colorPrimaryDark"
+        android:textColor="@android:color/darker_gray"
         android:layout_margin="5dp"
         android:layout_below="@+id/etTournamentName"
         android:layout_alignParentRight="true" />
@@ -30,7 +31,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="ID :"
-        android:textColor="@color/colorPrimaryDark"
+        android:textColor="@android:color/darker_gray"
         android:layout_margin="5dp"
         android:layout_below="@+id/buyin"
         android:layout_alignParentRight="true" />
@@ -39,6 +40,7 @@
         android:id="@+id/type"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="@android:color/darker_gray"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="Type :"
         android:layout_below="@+id/etTournamentName"
@@ -48,8 +50,9 @@
         android:id="@+id/currency"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
+        android:layout_alignStart="@+id/type"
         android:layout_below="@+id/type"
         android:text="Currency :"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="@android:color/darker_gray" />
 </RelativeLayout>
