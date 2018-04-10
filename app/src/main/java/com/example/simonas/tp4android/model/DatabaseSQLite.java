@@ -1,10 +1,13 @@
-package com.example.simonas.tp4android;
+package com.example.simonas.tp4android.model;
 
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+
+import com.example.simonas.tp4android.model.Tournament;
+import com.example.simonas.tp4android.model.User;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -67,7 +70,7 @@ public class DatabaseSQLite extends SQLiteOpenHelper {
         onCreate(dbtp);
     }
 
-    void addUser(User user){
+    public void addUser(User user){
         SQLiteDatabase dbtp = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();

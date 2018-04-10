@@ -1,4 +1,4 @@
-package com.example.simonas.tp4android;
+package com.example.simonas.tp4android.model;
 
 import android.content.Context;
 import android.content.Intent;
@@ -7,6 +7,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import android.support.v7.widget.RecyclerView;
+
+import com.example.simonas.tp4android.R;
+import com.example.simonas.tp4android.model.Tournament;
+import com.example.simonas.tp4android.view.EntryActivity;
 
 import java.util.Collections;
 import java.util.List;

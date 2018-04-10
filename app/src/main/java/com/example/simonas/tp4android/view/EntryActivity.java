@@ -1,12 +1,10 @@
-package com.example.simonas.tp4android;
+package com.example.simonas.tp4android.view;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
-import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -21,7 +19,11 @@ import android.widget.Spinner;
 /**
  * Created by Simonas on 2018.04.04.
  */
-import static com.example.simonas.tp4android.TournamentAdapter.ENTRY_ID;
+import com.example.simonas.tp4android.model.DatabaseSQLite;
+import com.example.simonas.tp4android.R;
+import com.example.simonas.tp4android.model.Tournament;
+
+import static com.example.simonas.tp4android.model.TournamentAdapter.ENTRY_ID;
 
 public class EntryActivity extends AppCompatActivity {
 

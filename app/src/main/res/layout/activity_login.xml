@@ -51,6 +51,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/cbRememberMe"
         android:layout_weight="0.03"
+        android:buttonTint="@android:color/darker_gray"
         android:textColor="@android:color/darker_gray" />
 
     <Button

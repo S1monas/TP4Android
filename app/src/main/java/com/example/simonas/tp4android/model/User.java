@@ -1,4 +1,4 @@
-package com.example.simonas.tp4android;
+package com.example.simonas.tp4android.model;
 
 import android.content.Context;
 import android.content.SharedPreferences;

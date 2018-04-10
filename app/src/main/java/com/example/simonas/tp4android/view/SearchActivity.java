@@ -1,4 +1,4 @@
-package com.example.simonas.tp4android;
+package com.example.simonas.tp4android.view;
 
 
 import android.app.ProgressDialog;
@@ -17,11 +17,16 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.example.simonas.tp4android.model.DatabaseSQLite;
+import com.example.simonas.tp4android.R;
+import com.example.simonas.tp4android.model.Tournament;
+import com.example.simonas.tp4android.model.TournamentAdapter;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import static com.example.simonas.tp4android.TournamentAdapter.ENTRY_ID;
+import static com.example.simonas.tp4android.model.TournamentAdapter.ENTRY_ID;
 /**
  * Created by Simonas on 2018.04.04.
  */

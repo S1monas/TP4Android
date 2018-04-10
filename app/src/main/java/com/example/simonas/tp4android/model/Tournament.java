@@ -1,4 +1,4 @@
-package com.example.simonas.tp4android;
+package com.example.simonas.tp4android.model;
 
 /**
  * Created by Simonas on 2018.04.04.
@@ -28,10 +28,9 @@ public class Tournament {
     public Tournament () {
     }
 
-
-    public Tournament (String game, String user, String format, String currency, String buyin, double result) {
+    //4 JUnit
+    public Tournament (String game, String format, String currency, String buyin, double result) {
         this.game = game;
-        //this.user = user;
         this.format = format;
         this.currency = currency;
         this.buyin = buyin;

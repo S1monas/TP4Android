@@ -1,4 +1,4 @@
-package com.example.simonas.tp4android;
+package com.example.simonas.tp4android.view;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,6 +9,11 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.simonas.tp4android.model.DatabaseSQLite;
+import com.example.simonas.tp4android.R;
+import com.example.simonas.tp4android.model.User;
+import com.example.simonas.tp4android.controller.Validation;
 
 public class LoginActivity extends AppCompatActivity {
 
