@@ -14,11 +14,13 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 
 /**
  * Created by Simonas on 2018.04.04.
  */
+import com.example.simonas.tp4android.controller.Validation;
 import com.example.simonas.tp4android.model.DatabaseSQLite;
 import com.example.simonas.tp4android.R;
 import com.example.simonas.tp4android.model.Tournament;
@@ -70,7 +72,7 @@ public class EntryActivity extends AppCompatActivity {
         if (entryID == -1) { //naujas irasas
             pradinisTournament.setGameid(-1);
             pradinisTournament.setGame("");
-            pradinisTournament.setFormat("Freeze Out");
+            pradinisTournament.setFormat("Rebuy");
             pradinisTournament.setCurrency("USD");
             pradinisTournament.setBuyin("55$");
             pradinisTournament.setResult(0);
@@ -117,36 +119,151 @@ public class EntryActivity extends AppCompatActivity {
         btnSubmit.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View view) {
-                getFields();
-                dbtp.addTournament(galutinisTournament);
-                Intent goToSearchActivity = new Intent(EntryActivity.this, SearchActivity.class);
-                startActivity(goToSearchActivity);
+
+                if (!Validation.isValidTournamentForAdd(etTournament.getText().toString())) {
+                    Toast.makeText(getApplicationContext(),
+                            "Wrong tournament name", Toast.LENGTH_LONG).show();
+                }else{
+                    double result = Double.parseDouble(etResult.getText().toString());
+                    String rb = "";
+                    String spinnerText = "";
+
+                    if (rb22.isChecked()) {
+                        rb = rb22.getText().toString();
+                    } else if (rb55.isChecked()) {
+                        rb = rb55.getText().toString();
+                    } else {
+                        rb = rb109.getText().toString();
+                    }
+
+                    String checkboxText = "";
+
+                    if (cbRebuy.isChecked()) {
+                        checkboxText = checkboxText + "Rebuy,";
+                    }
+                    if (cbKnockOut.isChecked()) {
+                        checkboxText = checkboxText + "KnockOut,";
+                    }
+                    if (cbFreezeOut.isChecked()) {
+                        checkboxText = checkboxText + "FreezeOut";
+                    }
+
+                    spinnerText = spinner.getSelectedItem().toString();
+
+                    galutinisTournament.setGameid(pradinisTournament.getGameid());
+                    galutinisTournament.setGame(etTournament.getText().toString());
+                    galutinisTournament.setFormat(checkboxText);
+                    galutinisTournament.setCurrency(spinnerText);
+                    galutinisTournament.setBuyin(rb);
+                    galutinisTournament.setResult(result);
+
+                    dbtp.addTournament(galutinisTournament);
+                    Intent goToSearchActivity = new Intent(EntryActivity.this, SearchActivity.class);
+                    startActivity(goToSearchActivity);
+                }
             }
         });
 
         btnUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getFields();
-                dbtp.updateTournament(galutinisTournament);
-                Intent goToSearchActivity = new Intent(EntryActivity.this, SearchActivity.class);
-                startActivity(goToSearchActivity);
+
+                if (!Validation.isValidTournamentForAdd(etTournament.getText().toString())) {
+                    Toast.makeText(getApplicationContext(),
+                            "Wrong tournament name", Toast.LENGTH_LONG).show();
+                } else {
+                    double result = Double.parseDouble(etResult.getText().toString());
+                    String rb = "";
+                    String spinnerText = "";
+
+                    if (rb22.isChecked()) {
+                        rb = rb22.getText().toString();
+                    } else if (rb55.isChecked()) {
+                        rb = rb55.getText().toString();
+                    } else {
+                        rb = rb109.getText().toString();
+                    }
+
+                    String checkboxText = "";
+
+                    if (cbRebuy.isChecked()) {
+                        checkboxText = checkboxText + "Rebuy,";
+                    }
+                    if (cbKnockOut.isChecked()) {
+                        checkboxText = checkboxText + "KnockOut,";
+                    }
+                    if (cbFreezeOut.isChecked()) {
+                        checkboxText = checkboxText + "FreezeOut";
+                    }
+
+                    spinnerText = spinner.getSelectedItem().toString();
+
+                    galutinisTournament.setGameid(pradinisTournament.getGameid());
+                    galutinisTournament.setGame(etTournament.getText().toString());
+                    galutinisTournament.setFormat(checkboxText);
+                    galutinisTournament.setCurrency(spinnerText);
+                    galutinisTournament.setBuyin(rb);
+                    galutinisTournament.setResult(result);
+
+                    dbtp.updateTournament(galutinisTournament);
+                    Intent goToSearchActivity = new Intent(EntryActivity.this, SearchActivity.class);
+                    startActivity(goToSearchActivity);
+                }
             }
         });
+
 
         btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getFields();
-                dbtp.deleteTournament(galutinisTournament);
-                Intent goToSearchActivity = new Intent(EntryActivity.this, SearchActivity.class);
-                startActivity(goToSearchActivity);
+
+                if (!Validation.isValidTournamentForAdd(etTournament.getText().toString())) {
+                    Toast.makeText(getApplicationContext(),
+                            "Wrong tournament name", Toast.LENGTH_LONG).show();
+                } else {
+                    double result = Double.parseDouble(etResult.getText().toString());
+                    String rb = "";
+                    String spinnerText = "";
+
+                    if (rb22.isChecked()) {
+                        rb = rb22.getText().toString();
+                    } else if (rb55.isChecked()) {
+                        rb = rb55.getText().toString();
+                    } else {
+                        rb = rb109.getText().toString();
+                    }
+
+                    String checkboxText = "";
+
+                    if (cbRebuy.isChecked()) {
+                        checkboxText = checkboxText + "Rebuy,";
+                    }
+                    if (cbKnockOut.isChecked()) {
+                        checkboxText = checkboxText + "KnockOut,";
+                    }
+                    if (cbFreezeOut.isChecked()) {
+                        checkboxText = checkboxText + "FreezeOut";
+                    }
+
+                    spinnerText = spinner.getSelectedItem().toString();
+
+                    galutinisTournament.setGameid(pradinisTournament.getGameid());
+                    galutinisTournament.setGame(etTournament.getText().toString());
+                    galutinisTournament.setFormat(checkboxText);
+                    galutinisTournament.setCurrency(spinnerText);
+                    galutinisTournament.setBuyin(rb);
+                    galutinisTournament.setResult(result);
+
+                    dbtp.deleteTournament(galutinisTournament);
+                    Intent goToSearchActivity = new Intent(EntryActivity.this, SearchActivity.class);
+                    startActivity(goToSearchActivity);
+                }
             }
         });
     }
 
-    private void getFields(){
 
+    private void getFields() {
         String name = etTournament.getText().toString();
         double result = Double.parseDouble(etResult.getText().toString());
         String rb = "";
